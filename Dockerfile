@@ -16,8 +16,8 @@ RUN dpkg -i cloudflared.deb && rm cloudflared.deb
 
 WORKDIR /
 
-RUN cp -f nginx.conf /etc/nginx/nginx.conf
-RUN cp backup.sh backup.sh
-RUN cp start.sh start.sh
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY backup.sh backup.sh
+COPY start.sh start.sh
 
 CMD ["/start.sh"]
