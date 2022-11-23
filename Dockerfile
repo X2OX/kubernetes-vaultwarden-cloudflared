@@ -5,16 +5,17 @@ ENV WEBSOCKET_PORT=3012 \
     IP_HEADER="CF-Connecting-IP" \
     DATABASE_URL="/data/bitwarden.db"
 
-RUN apt-get update && apt-get -y --no-install-recommends install cron curl git nginx sqlite3
+RUN mkdir -p --mode=0755 /usr/share/keyrings
+RUN curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | tee /usr/share/keyrings/cloudflare-main.gpg > /dev/null
+RUN echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared bullseye main' | tee /etc/apt/sources.list.d/cloudflared.list
+
+
+RUN apt-get update && apt-get -y --no-install-recommends install cron curl git nginx sqlite3 cloudflared
+
 
 RUN git config --global user.name "kubernetes-vaultwarden-cloudflared[bot]"
 RUN git config --global user.email "kubernetes-vaultwarden-cloudflared@x2ox.github.com"
 
-# cloudflared
-RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/ | sed s/armel/arm/) && curl -L --output cloudflared.deb "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${arch}.deb"
-
-RUN echo $(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/ | sed s/armel/arm/) && ls -al
-RUN dpkg -i cloudflared.deb && rm cloudflared.deb
 
 WORKDIR /
 
