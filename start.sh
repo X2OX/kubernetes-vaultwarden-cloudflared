@@ -1,17 +1,17 @@
 #!/bin/sh
 
 initGit() {
-  git clone "$BACKUP_GIT_REPO" .
+  git clone "$BACKUP_GIT_REPO" data && cd data
 
   if [ ! -f .gitignore ]; then
     touch .gitignore
   fi
 
   if [ $(grep -c "bitwarden.db" ".gitignore") -ne '0' ]; then
-    echo "bitwarden.db" >>.gitignore
-    echo "bitwarden.db-shm" >>.gitignore
-    echo "bitwarden.db-wal" >>.gitignore
-    echo "tmp" >>.gitignore
+    echo "bitwarden.db" >> .gitignore
+    echo "bitwarden.db-shm" >> .gitignore
+    echo "bitwarden.db-wal" >> .gitignore
+    echo "tmp" >> .gitignore
   fi
 
   if [ -f buckup.db ]; then
@@ -20,7 +20,7 @@ initGit() {
 }
 
 initGit
-cat "$BACKUP_SCHEDULE bash /backup.sh" >/var/spool/cron/crontabs/root
+echo "$BACKUP_SCHEDULE bash /backup.sh" > /var/spool/cron/crontabs/root
 
 /etc/init.d/cron start
 /etc/init.d/nginx start
