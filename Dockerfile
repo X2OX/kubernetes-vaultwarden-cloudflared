@@ -5,7 +5,7 @@ ENV WEBSOCKET_PORT=3012 \
     IP_HEADER="CF-Connecting-IP" \
     DATABASE_URL="/data/bitwarden.db"
 
-RUN DEBIAN_FRONTEND=noninteractive apt -y install cron curl git nginx sqlite3
+RUN apt-get update && apt-get -y --no-install-recommends install cron curl git nginx sqlite3
 
 RUN git config --global user.name "kubernetes-vaultwarden-cloudflared[bot]"
 RUN git config --global user.email "kubernetes-vaultwarden-cloudflared@x2ox.github.com"
