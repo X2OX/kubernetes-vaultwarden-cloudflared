@@ -1,6 +1,7 @@
 FROM vaultwarden/server:latest
 
-ENV WEBSOCKET_PORT=3012 \
+ENV I_REALLY_WANT_VOLATILE_STORAGE="true" \
+    WEBSOCKET_PORT=3012 \
     ROCKET_PORT=8080 \
     IP_HEADER="CF-Connecting-IP" \
     DATABASE_URL="/data/bitwarden.db"
