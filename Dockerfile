@@ -12,6 +12,8 @@ RUN git config --global user.email "kubernetes-vaultwarden-cloudflared@x2ox.gith
 
 # cloudflared
 RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/ | sed s/armel/arm/) && curl -L --output cloudflared.deb "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${arch}.deb"
+
+RUN echo $(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/ | sed s/armel/arm/) && ls -al
 RUN dpkg -i cloudflared.deb && rm cloudflared.deb
 
 WORKDIR /
