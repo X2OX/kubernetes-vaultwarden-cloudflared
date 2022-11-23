@@ -24,8 +24,8 @@ echo "$BACKUP_SCHEDULE bash /backup.sh" > /var/spool/cron/crontabs/root
 
 /etc/init.d/cron start
 /etc/init.d/nginx start
-cloudflared service install "$CLOUDFLARED_TOKEN"
 
+cloudflared tunnel --no-autoupdate run --token "$CLOUDFLARED_TOKEN" >> /dev/stdout 2>> /dev/stderr &
 
 
 # Run
