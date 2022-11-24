@@ -1,8 +1,6 @@
 name: Pull Request Test
 
-on:
-  push:
-    pull_request: [ "main" ]
+on: pull_request
 
 jobs:
   PullRequestTest:
