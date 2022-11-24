@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 initGit() {
   git clone "$BACKUP_GIT_REPO" data
@@ -7,7 +7,7 @@ initGit() {
     touch /data/.gitignore
   fi
 
-  if [ $(grep -c "bitwarden.db" "/data/.gitignore") -ne '0' ]; then
+  if [[ $(echo "/data/.gitignore" | grep "bitwarden.db") == "" ]]; then
     echo "bitwarden.db" >> /data/.gitignore
     echo "bitwarden.db-shm" >> /data/.gitignore
     echo "bitwarden.db-wal" >> /data/.gitignore
