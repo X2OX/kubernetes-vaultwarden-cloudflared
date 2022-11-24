@@ -1,21 +1,21 @@
 #!/bin/sh
 
 initGit() {
-  git clone "$BACKUP_GIT_REPO" data && cd data
+  git clone "$BACKUP_GIT_REPO" data
 
-  if [ ! -f .gitignore ]; then
-    touch .gitignore
+  if [ ! -f /data/.gitignore ]; then
+    touch /data/.gitignore
   fi
 
-  if [ $(grep -c "bitwarden.db" ".gitignore") -ne '0' ]; then
-    echo "bitwarden.db" >> .gitignore
-    echo "bitwarden.db-shm" >> .gitignore
-    echo "bitwarden.db-wal" >> .gitignore
-    echo "tmp" >> .gitignore
+  if [ $(grep -c "bitwarden.db" "/data/.gitignore") -ne '0' ]; then
+    echo "bitwarden.db" >> /data/.gitignore
+    echo "bitwarden.db-shm" >> /data/.gitignore
+    echo "bitwarden.db-wal" >> /data/.gitignore
+    echo "tmp" >> /data/.gitignore
   fi
 
-  if [ -f buckup.db ]; then
-    cp buckup.db bitwarden.db
+  if [ -f /data/buckup.db ]; then
+    cp /data/buckup.db /data/bitwarden.db
   fi
 }
 
