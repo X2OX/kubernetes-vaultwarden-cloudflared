@@ -8,7 +8,6 @@ on:
 jobs:
   BuildDockerImage:
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'x2ox/kubernetes-vaultwarden-cloudflared' }}
 
     steps:
     - uses: actions/checkout@v3
