@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitwarden
+  labels:
+    app: bitwarden
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitwarden
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: bitwarden
+    spec:
+      containers:
+        - name: bitwarden
+          image: ghcr.io/x2ox/kubernetes-vaultwarden-cloudflared:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: DOMAIN
+              value: 'https://vault.x2ox.com'
+            - name: SHOW_PASSWORD_HINT
+              value: 'false'
+            - name: CLOUDFLARED_TOKEN
+              value: 'token'
+            - name: BACKUP
+              value: 'Git'
+            - name: BACKUP_SCHEDULE
+              value: '1 * * * *'
+            - name: BACKUP_GIT_REPO
+              value: 'https://token@github.com/owner/repo.git'

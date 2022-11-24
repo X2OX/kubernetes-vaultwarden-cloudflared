@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  kvc:
+    image: ghcr.io/x2ox/kubernetes-vaultwarden-cloudflared:latest
+    container_name: kvc
+    restart: always
+    environment:
+      BACKUP_SCHEDULE: '0 * * * *'
+      BACKUP_GIT_REPO: 'https://token@github.com/owner/repo.git'
+      CLOUDFLARED_TOKEN: 'token'

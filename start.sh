@@ -28,12 +28,6 @@ echo "$BACKUP_SCHEDULE bash /backup.sh" > /var/spool/cron/crontabs/root
 cloudflared tunnel --no-autoupdate run --token "$CLOUDFLARED_TOKEN" >> /dev/stdout 2>> /dev/stderr &
 
 
-# Run
-export WEBSOCKET_PORT=3012
-export ROCKET_PORT=8080
-export IP_HEADER="CF-Connecting-IP"
-export DATABASE_URL="/data/bitwarden.db"
-
 if [ -r /etc/vaultwarden.sh ]; then
     . /etc/vaultwarden.sh
 fi
